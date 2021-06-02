@@ -8,16 +8,16 @@ class Instance:
         self.fileName = filename
         self.labels = labels
 def parseCLI():
-    parser = argparse.ArgumentParser(description='Utilitary in Python')
+    parser = argparse.ArgumentParser(description='Utilitary in Python to generate distance matrix and clustering')
     parser.add_argument('-d','--directory', help='Directory name', required=True, metavar='directory')
     parser.add_argument('-c','--compressor', help='Compressor Type', required=True, choices=['ncd', 'nvcomp', 'fcd', 'nvjpeg'], metavar='compressor')
     parser.add_argument('-t','--type', help='Clustering Algorithm', choices=['k-medoids', 'hierarchical'], metavar='type')
-    parser.add_argument('-p','--print', help='print distance matrix',action='store_true')
-    parser.add_argument('-o','--out', help='write distance matrix in file',action='store_true')
+    parser.add_argument('-p','--print', help='print distance matrix', action='store_true')
+    parser.add_argument('-o','--out', help='write distance matrix in file')
     parser.add_argument('-s','--statistics', help='print statistics about clusterization performance', action='store_true')
     parser.add_argument('-l','--labels', help='filename for labels document')
     parser.add_argument('-n','--nexus', help='generate pylogenetic tree', action='store_true')
-    parser.add_argument('-v','--verbose', help='print execution times', action='store_true')
+    parser.add_argument('-v','--verbose', help='print extra informations', action='store_true')
     parser.add_argument('-m','--multilabel', help='flag to inform multilabel clustering, available only for labels parameter', action='store_true')
     args = vars(parser.parse_args())
     return args

@@ -96,13 +96,6 @@ def NCD_Seq(folder):
         outputStringHelp2 = np.array(outputStringHelp1[1:len(outputStringHelp1)-1])
         outputString[i] = outputStringHelp2.astype(float)
     return outputString, labels
-def NVCOMP_PT(folder):
-    for root, dirs, files in os.walk(folder):
-        for file in files:
-            print("Hi")
-            #fileT = torch.load(folder+"/"+file)
-            #plt.imshow(np.float64(fileT))
-            #plt.show()
 def NVJPEG(folder):
     nj = NvJpeg()
     images =[]
@@ -126,3 +119,23 @@ def NVJPEG(folder):
             else:
                 similarityMatrix[i][j] = (out_bytes[i][j] - min(out_bytes[i][j], out_bytes[j][j])) / max(out_bytes[i][i], out_bytes[j][j])
     return similarityMatrix
+def NCD_CLASS(folder, test):
+    folderName1 = test
+    folderName2 = folder
+    command = "wsl ncd -c zlib -d " + folderName2 + " -d "+ folderName1
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    output = output.decode('utf-8')
+    outputList = output.split('\n')
+    for root, dirs, files in os.walk(test):
+        sizeTest = len(files)
+    for root, dirs, files in os.walk(folder):
+        sizeTrain = len(files)
+    labels = np.zeros((sizeTest,), dtype='U50')
+    outputString = np.zeros((sizeTest, sizeTrain), dtype=float)
+    for i in range(sizeTest):
+        outputStringHelp1= outputList[i].split(' ')
+        labels[i] = outputStringHelp1[0]
+        outputStringHelp2 = np.array(outputStringHelp1[1:len(outputStringHelp1)-1])
+        outputString[i] = outputStringHelp2.astype(float)
+    return outputString, labels

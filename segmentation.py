@@ -1,6 +1,4 @@
 import os
-
-import numpy as np
 import cv2
 from sklearn.cluster import MiniBatchKMeans
 def imagesPreprocessing(folder):
@@ -20,3 +18,4 @@ def imageSegmentation(image):
     quant = quant.reshape((h, w, 3))
     quant = cv2.cvtColor(quant, cv2.COLOR_LAB2BGR)
     return quant
+
